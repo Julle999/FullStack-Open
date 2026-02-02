@@ -10,23 +10,29 @@ const Footer = () => {
 
 const Hello = (props) => {
   console.log(props)
+  const brnyear = () => {
+    const yearNow = new Date().getFullYear()
+    return yearNow - props.age
+  }
   return(
     <div>
       <p>Hello {props.name}, you are {props.age} years old.</p>
+      <p>So you are probably born {brnyear()}</p>
     </div>
   )
 }
 
-const App = () => {
-  const friends = [
-    { name: 'Leevi', age: 7 },
-    { name: 'Venla', age: 10 },
-  ]
+const App = (props) => {
+  const {counter} = props
+  const nimi = 'Pekka'
+  const ika = 10
 
   return (
     <div>
-      <p>{friends[0].name} {friends[0].age}</p>
-      <p>{friends[1].name} {friends[1].age}</p>
+      <h1>Greetings</h1>
+      <Hello name="Maya" age={26 + 10} />
+      <Hello name={nimi} age={ika} />
+      <div>{counter}</div>
     </div>
   )
 }
