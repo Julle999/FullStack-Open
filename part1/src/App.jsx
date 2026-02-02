@@ -19,7 +19,7 @@ const Hello = (props) => {
 
 const App = () => {
   const friends = [
-    { name: 'Leevi', age: 7 },
+    { name: 'Leevi', age: 700 },
     { name: 'Venla', age: 10 },
   ]
 
