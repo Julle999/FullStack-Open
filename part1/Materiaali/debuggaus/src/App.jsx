@@ -21,9 +21,14 @@ const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 const App = () => {
   const [value, setValue] = useState(10)
 
-  const hello = (who) => () => {
-      console.log('hello', who)
+  const setToValue = (newValue) => () => {
+      console.log('value now', newValue)
+      setValue(newValue)
     }
+
+   //const hello = (who) => () => {
+  //    console.log('hello', who)
+  //  }
   
 
   //const [clicks, setClicks] = useState({ left: 0, right: 0 })
@@ -49,9 +54,9 @@ const App = () => {
   return (
     <div>
       {value}
-      <button onClick={hello('world')}>button</button>
-      <button onClick={hello('react')}>button</button>
-      <button onClick={hello('joku')}>button</button>
+      <button onClick={setToValue(1000)}>thousand</button>
+      <button onClick={setToValue(0)}>reset</button>
+      <button onClick={setToValue(value +1)}>increment</button>
       {/*<div>
         {left}
         <Button onClick={handleLeftClick} text='left'/>
