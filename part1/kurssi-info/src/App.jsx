@@ -66,7 +66,7 @@ const App = () => {
       <Header course={course.name}/>
       <Content parts={course.parts}/>
       <Total total="Number of exercises" value={course.parts.reduce(
-        (sum, part)=> sum + part.exercises,0
+                                                (sum, part)=> sum + part.exercises,0
       )}/>
       {/*<p>
         {course.parts.reduce((sum, part)=> sum + part.exercises,0)}
