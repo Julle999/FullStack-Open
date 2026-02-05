@@ -32,19 +32,19 @@ const App = () => {
   const [counter, setCounter] = useState(0)
   console.log('rendering with counter value', counter)
   
-const increaseByOne = () => {
+  const increaseByOne = () => {
     console.log('increasing, value before', counter)    
-setCounter(counter + 1)
+    setCounter(counter + 1)
   }
 
   const decreaseByOne = () => { 
     console.log('decreasing, value before', counter)    
-setCounter(counter - 1)
+    setCounter(counter - 1)
   }
 
   const setToZero = () => {
     console.log('resetting to zero, value before', counter)    
-setCounter(0)
+    setCounter(0)
   }
 
   //const handleClick = () => {
