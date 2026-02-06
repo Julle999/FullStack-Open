@@ -13,19 +13,23 @@ const Statistic = ({ value, text }) => <div>{text} {value}</div>
 
 const Statistics = ({stats}) => {
   const votes = stats[0]+stats[1]+stats[2]
-  const goods = (stats[0]*1)+(stats[2]*-1)
-  const avrg = goods/votes
+  let result;
+  if (votes < 1) {
+    result = <div>No feedback given</div>
+  } else {
 
-  return (
-    <div>
+    const goods = (stats[0]*1)+(stats[2]*-1)
+    const avrg = goods/votes
+    result = <div>
       <Statistic value={stats[0]} text="good"/>
       <Statistic value={stats[1]} text="neutral"/>
       <Statistic value={stats[2]} text="bad"/>
       <Statistic value={votes} text="all"/>
       <Statistic value={avrg} text="average"/>
       <Statistic value={stats[0]/votes+ "%"} text="positive"/>
-    </div>
-  )
+    </div>  
+  }
+    return result
 }
 
 const App = () => {
