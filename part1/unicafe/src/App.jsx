@@ -9,7 +9,7 @@ const Button = ({ onClick, text}) => {
   )
 }
 
-const StatisticLine = ({ value, text }) => <div>{text} {value}</div>
+const StatisticLine = ({ value, text }) => <tr><td>{text}</td><td>{value}</td></tr>
 
 const Statistics = ({stats}) => {
   const votes = stats[0]+stats[1]+stats[2]
@@ -20,14 +20,16 @@ const Statistics = ({stats}) => {
 
     const goods = (stats[0]*1)+(stats[2]*-1)
     const avrg = goods/votes
-    result = <div>
-      <StatisticLine value={stats[0]} text="good"/>
-      <StatisticLine value={stats[1]} text="neutral"/>
-      <StatisticLine value={stats[2]} text="bad"/>
-      <StatisticLine value={votes} text="all"/>
-      <StatisticLine value={avrg} text="average"/>
-      <StatisticLine value={stats[0]/votes+ "%"} text="positive"/>
-    </div>  
+    result = <table>
+      <tbody>
+        <StatisticLine value={stats[0]} text="good"/>
+        <StatisticLine value={stats[1]} text="neutral"/>
+        <StatisticLine value={stats[2]} text="bad"/>
+        <StatisticLine value={votes} text="all"/>
+        <StatisticLine value={avrg} text="average"/>
+        <StatisticLine value={stats[0]/votes*100+ "%"} text="positive"/>
+      </tbody>
+    </table>  
   }
     return result
 }
