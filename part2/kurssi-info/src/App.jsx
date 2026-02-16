@@ -1,57 +1,5 @@
-
-const Header = (props) => {
-  console.log("header:"+props.course)
-  return(
-    <div>
-      <h1>{props.course}</h1>
-    </div>
-  )
-
-}
-
-
-const Part = ({ part }) => {
-  console.log('creating part')
-
-  return(
-    <div>
-      <p>{part.name} {part.exercises}</p>
-    </div>
-  )
-}
-
-const Content = ({ parts }) => {
-  console.log('How many parts: '+parts.length)
-  return(
-    <div>
-      
-        {parts.map(part =>
-          <Part part={part}/>
-        )}
-      
-    </div>
-  )
-}
-
-
-const Total = (props) => {
-  console.log(props.total)
-
-  return(
-    <div>
-      <p>{props.total} {props.value}</p>
-    </div>
-  )
-}
-
-const Course = ({ course }) => {
-  return (
-    <div>
-      <Header course={course.name}/>
-      <Content parts={course.parts}/>
-    </div>
-  )
-}
+import Course from "./components/Course"
+import Total from "./components/Total"
 
 const App = () => {
   const course = {
