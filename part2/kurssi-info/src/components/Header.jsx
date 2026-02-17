@@ -1,5 +1,5 @@
 const Header = (props) => {
-  //console.log("header:"+props.name)
+  //console.log("header:",props.name)
   return(
     <div>
       <h1>{props.name}</h1>

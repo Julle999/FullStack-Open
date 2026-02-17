@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import Person from './components/Person'
+import Persons from './components/Persons'
 import Header from '../../kurssi-info/src/components/Header'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -12,8 +14,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
-  const [searched, setSearched] = useState(false)
-  //const [personsToShow, setPersonsToShow] = useState(persons)
+  
 
   const handleNameChange = (event) => {
     //console.log(event.target.value)
@@ -26,8 +27,8 @@ const App = () => {
   }
 
   const handleSearchChange = (event) => {
+    //console.log('käsittelee hakua')
     setSearchName(event.target.value)
-    setSearched(true)
   }
   // thank you discord for .includes() above!!!
   const personsToShow = searchName != '' ? persons.filter(p => p.name.toLowerCase().includes(searchName.toLowerCase())) : persons
@@ -36,7 +37,7 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    console.log('Button clicked', event.target)
+    //console.log('Button clicked', event.target)
     const personObject = {
       name : newName,
       number : newNumber
@@ -59,21 +60,12 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
-      <div>filter shown with<input value={searchName} onChange={handleSearchChange} /></div>
+      <Header name="Phonebook"/>
+      <Filter value={searchName} onChange={handleSearchChange}/>
       <Header name="add a new"/>
-      <form onSubmit={addPerson}>
-        <div>name: <input value={newName}onChange={handleNameChange}/></div>
-        <div>number: <input value={newNumber} onChange={handleNumberChange}/></div>
-        <div><button type="submit">add</button></div>
-      </form>
-      <h2>Numbers</h2>
-      
-        {personsToShow.map(person =>
-          <Person key={person.name} name={person.name} number={person.number}/>
-
-        )}
-      
+      <PersonForm onSubmit={addPerson} nameValue={newName} nameOnChange={handleNameChange} numValue={newNumber} numOnChange={handleNumberChange}/>
+      <Header name="Numbers"/>
+      <Persons arr={personsToShow}/>
     </div>
   )
 
