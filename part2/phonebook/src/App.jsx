@@ -5,6 +5,7 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import { useEffect } from 'react'
 import axios from 'axios'
+import bookService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -49,15 +50,22 @@ const App = () => {
     }
     const names = persons.map((person) => person.name)
 
-    if (!names.includes(newName)) {
+    
 
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
-    } else {
-      window.alert(`${newName} is already added to phonebook`)
-      //setNewName('')
-    }
+        if (!names.includes(newName)) {
+          bookService
+            .create(personObject)
+            .then(returnedPerson => {
+              console.log('post promise fullfilled')
+              setPersons(persons.concat(returnedPerson))
+              setNewName('')
+              setNewNumber('')
+            })
+        } else {
+          window.alert(`${newName} is already added to phonebook`)
+          //setNewName('')
+        }
+      
   } 
 
   
