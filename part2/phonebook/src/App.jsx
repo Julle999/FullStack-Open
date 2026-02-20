@@ -15,10 +15,15 @@ const App = () => {
   
   useEffect(() => {
     console.log('effect')
-    axios.get('http://localhost:3001/persons').then((response) => {
-      console.log('promise fulfilled')
-      setPersons(response.data)
-    })
+    bookService
+      .getAll()
+      .then((initialPersons) => {
+        setPersons(initialPersons)
+      })
+    //axios.get('http://localhost:3001/persons').then((response) => {
+    //  console.log('promise fulfilled')
+    //  setPersons(response.data)
+    //})
   }, [])
   console.log('render',persons.length, 'persons')
 
@@ -68,6 +73,20 @@ const App = () => {
       
   } 
 
+  const deletePerson = (person) => {
+    const poistetaanko = window.confirm(`Delete ${person.name} ${person.id}`)
+    console.log(poistetaanko)
+    if (poistetaanko) {
+      console.log(`deleting ${person.name}`)
+      bookService
+        .del(person.id)
+        .then((deletedPerson) => {
+          setPersons(persons.filter((p) => p.id !== deletedPerson.id))
+          console.log(deletedPerson.id)
+          console.log('person ', person.name, ' deleted')
+        })
+    }
+  }
   
 
 
@@ -78,7 +97,7 @@ const App = () => {
       <Header name="add a new"/>
       <PersonForm onSubmit={addPerson} nameValue={newName} nameOnChange={handleNameChange} numValue={newNumber} numOnChange={handleNumberChange}/>
       <Header name="Numbers"/>
-      <Persons arr={personsToShow}/>
+      <Persons arr={personsToShow} handleDelete={deletePerson}/>
     </div>
   )
 
