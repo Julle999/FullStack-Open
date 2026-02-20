@@ -6,13 +6,15 @@ import PersonForm from './components/PersonForm'
 import { useEffect } from 'react'
 import axios from 'axios'
 import bookService from './services/persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
-  
+  const [actionMessage, setActionMessage] = useState(null)  
+
   useEffect(() => {
     console.log('effect')
     bookService
@@ -65,15 +67,21 @@ const App = () => {
               setPersons(persons.concat(returnedPerson))
               setNewName('')
               setNewNumber('')
+              setActionMessage('Person added successfully')
+              setTimeout(() => setActionMessage(null),5000)
             })
         } else if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
           const existingPerson = persons.find((p) => p.name === newName)
           console.log(existingPerson.id, existingPerson.name)
           axios
             .put(`http://localhost:3001/persons/${existingPerson.id}`,personObject)
-            .then((response) => setPersons(persons.map((p) => p.id === existingPerson.id 
-                                ? { ...p, number : newNumber}
-                                : p)))
+            .then((response) => {
+              setPersons(persons.map((p) => p.id === existingPerson.id ? { ...p, number : newNumber}: p))
+              setNewName('')
+              setNewNumber('')
+              setActionMessage('Number changed successfully')
+              setTimeout(() => setActionMessage(null),5000)
+            })
         }
   } 
 
@@ -86,6 +94,8 @@ const App = () => {
         .del(person.id)
         .then((deletedPerson) => {
           setPersons(persons.filter((p) => p.id !== deletedPerson.id))
+          setActionMessage('Person deleted successfully')
+          setTimeout(() => setActionMessage(null),5000)
           console.log(deletedPerson.id)
           console.log('person ', person.name, ' deleted')
         })
@@ -97,6 +107,7 @@ const App = () => {
   return (
     <div>
       <Header name="Phonebook"/>
+      <Notification message={actionMessage}/>
       <Filter value={searchName} onChange={handleSearchChange}/>
       <Header name="add a new"/>
       <PersonForm onSubmit={addPerson} nameValue={newName} nameOnChange={handleNameChange} numValue={newNumber} numOnChange={handleNumberChange}/>
