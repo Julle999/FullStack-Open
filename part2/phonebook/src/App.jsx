@@ -4,7 +4,6 @@ import Header from '../../kurssi-info/src/components/Header'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import { useEffect } from 'react'
-import axios from 'axios'
 import bookService from './services/persons'
 import Notification from './components/Notification'
 
@@ -14,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
   const [actionMessage, setActionMessage] = useState(null)  
+  const [style, setStyle] = useState(true)
 
   useEffect(() => {
     console.log('effect')
@@ -68,19 +68,31 @@ const App = () => {
               setNewName('')
               setNewNumber('')
               setActionMessage('Person added successfully')
+              setStyle(true)
               setTimeout(() => setActionMessage(null),5000)
             })
         } else if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
           const existingPerson = persons.find((p) => p.name === newName)
           console.log(existingPerson.id, existingPerson.name)
-          axios
-            .put(`http://localhost:3001/persons/${existingPerson.id}`,personObject)
-            .then((response) => {
+          
+          bookService
+            .modify(existingPerson,personObject)
+            .then(() => {
               setPersons(persons.map((p) => p.id === existingPerson.id ? { ...p, number : newNumber}: p))
               setNewName('')
               setNewNumber('')
               setActionMessage('Number changed successfully')
+              setStyle(true)
               setTimeout(() => setActionMessage(null),5000)
+            })
+            .catch(error => {
+              console.log('fail')
+              setActionMessage(`Information of ${existingPerson.name} has already been removed from the server` )
+              setStyle(false)
+              setTimeout(() => setActionMessage(null),5000)
+              setPersons(persons.filter(p => p.id !== existingPerson.id))
+              setNewName('')
+              setNewNumber('')
             })
         }
   } 
@@ -95,6 +107,7 @@ const App = () => {
         .then((deletedPerson) => {
           setPersons(persons.filter((p) => p.id !== deletedPerson.id))
           setActionMessage('Person deleted successfully')
+          setStyle(true)
           setTimeout(() => setActionMessage(null),5000)
           console.log(deletedPerson.id)
           console.log('person ', person.name, ' deleted')
@@ -107,7 +120,7 @@ const App = () => {
   return (
     <div>
       <Header name="Phonebook"/>
-      <Notification message={actionMessage}/>
+      <Notification style={style} message={actionMessage}/>
       <Filter value={searchName} onChange={handleSearchChange}/>
       <Header name="add a new"/>
       <PersonForm onSubmit={addPerson} nameValue={newName} nameOnChange={handleNameChange} numValue={newNumber} numOnChange={handleNumberChange}/>

@@ -20,7 +20,14 @@ const del = (id) =>{
     return request.then((response) => response.data)
 }
 
-export default {create, del, getAll}
+const modify = (existingPerson, personObject) => {
+    console.log(existingPerson.id)
+    const url = baseUrl.concat('/').concat(existingPerson.id)
+    const request = axios.put(url,personObject)
+    return request.then((response) => response.data)
+}
+
+export default {create, del, getAll, modify}
 
 
 //TODO: 
