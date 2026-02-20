@@ -66,11 +66,15 @@ const App = () => {
               setNewName('')
               setNewNumber('')
             })
-        } else {
-          window.alert(`${newName} is already added to phonebook`)
-          //setNewName('')
+        } else if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+          const existingPerson = persons.find((p) => p.name === newName)
+          console.log(existingPerson.id, existingPerson.name)
+          axios
+            .put(`http://localhost:3001/persons/${existingPerson.id}`,personObject)
+            .then((response) => setPersons(persons.map((p) => p.id === existingPerson.id 
+                                ? { ...p, number : newNumber}
+                                : p)))
         }
-      
   } 
 
   const deletePerson = (person) => {
