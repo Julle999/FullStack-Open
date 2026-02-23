@@ -13,7 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchName, setSearchName] = useState('')
   const [actionMessage, setActionMessage] = useState(null)  
-  const [style, setStyle] = useState(true)
+  const [isError, setIsError] = useState(true)
 
   useEffect(() => {
     console.log('effect')
@@ -68,7 +68,7 @@ const App = () => {
               setNewName('')
               setNewNumber('')
               setActionMessage('Person added successfully')
-              setStyle(true)
+              setIsError(true)
               setTimeout(() => setActionMessage(null),5000)
             })
         } else if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
@@ -82,13 +82,13 @@ const App = () => {
               setNewName('')
               setNewNumber('')
               setActionMessage('Number changed successfully')
-              setStyle(true)
+              setIsError(true)
               setTimeout(() => setActionMessage(null),5000)
             })
             .catch(error => {
               console.log('fail')
               setActionMessage(`Information of ${existingPerson.name} has already been removed from the server` )
-              setStyle(false)
+              setIsError(false)
               setTimeout(() => setActionMessage(null),5000)
               setPersons(persons.filter(p => p.id !== existingPerson.id))
               setNewName('')
@@ -107,7 +107,7 @@ const App = () => {
         .then((deletedPerson) => {
           setPersons(persons.filter((p) => p.id !== deletedPerson.id))
           setActionMessage('Person deleted successfully')
-          setStyle(true)
+          setIsError(true)
           setTimeout(() => setActionMessage(null),5000)
           console.log(deletedPerson.id)
           console.log('person ', person.name, ' deleted')
@@ -120,7 +120,7 @@ const App = () => {
   return (
     <div>
       <Header name="Phonebook"/>
-      <Notification style={style} message={actionMessage}/>
+      <Notification isError={isError} message={actionMessage}/>
       <Filter value={searchName} onChange={handleSearchChange}/>
       <Header name="add a new"/>
       <PersonForm onSubmit={addPerson} nameValue={newName} nameOnChange={handleNameChange} numValue={newNumber} numOnChange={handleNumberChange}/>
