@@ -6,7 +6,7 @@ app.use(express.json())
 app.use(express.static('dist'))
 
 let notes = [
-      {
+  {
     id: "1",
     content: "HTML is easy",
     important: true
@@ -74,6 +74,29 @@ app.post('/api/notes', (request, response) => {
   notes = notes.concat(note)
 
   response.json(note)
+})
+
+app.put('/api/notes/:id', (request, response) => {
+   const id = request.params.id
+   const body = request.body
+   //const 
+   const toBeReplaced = notes.find(n => n.id === id)
+   //
+   
+   //console.log(toBeReplaced)
+   //console.log(notes.indexOf(toBeReplaced))
+   //console.log(notes)
+   const newNote = {
+    id: body.id,
+    content:body.content,
+    important: body.important
+   }
+   //console.log(newNote)
+   
+   notes.splice(notes.indexOf(toBeReplaced), 1 , newNote)
+
+   //console.log(notes)
+   
 })
 
 const PORT = process.env.PORT || 3001
