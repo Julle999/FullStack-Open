@@ -61,8 +61,10 @@ app.get('/info', (request, response) => {
 
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
+    console.log(persons)
     persons = persons.filter(p => p.id !== id)
     console.log('deleted: ',id)
+    console.log(persons)
     response.status(204).end()
 })
 
@@ -103,10 +105,12 @@ app.post('/api/persons', (request, response) => {
     number: body.number,
     id: generatedId(1000),
   }
+  console.log(person)
 
   //const double = persons.find(p => p.name === person.name)
-
+  console.log(persons)
   persons = persons.concat(person)
+  console.log(persons)
 
   response.json(person)
 })
