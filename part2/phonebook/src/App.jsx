@@ -57,8 +57,6 @@ const App = () => {
     }
     const names = persons.map((person) => person.name)
 
-    
-
         if (!names.includes(newName)) {
           bookService
             .create(personObject)
@@ -90,7 +88,7 @@ const App = () => {
               setActionMessage(`Information of ${existingPerson.name} has already been removed from the server` )
               setIsError(false)
               setTimeout(() => setActionMessage(null),5000)
-              setPersons(persons.filter(p => p.id !== existingPerson.id))
+              //setPersons(persons.filter(p => p.id !== existingPerson.id))
               setNewName('')
               setNewNumber('')
             })
@@ -105,11 +103,11 @@ const App = () => {
       bookService
         .del(person.id)
         .then((deletedPerson) => {
-          setPersons(persons.filter((p) => p.id !== deletedPerson.id))
+          setPersons(persons.filter(p => p.id !== person.id))
           setActionMessage('Person deleted successfully')
           setIsError(true)
           setTimeout(() => setActionMessage(null),5000)
-          console.log(deletedPerson.id)
+          console.log(person.id)
           console.log('person ', person.name, ' deleted')
         })
     }

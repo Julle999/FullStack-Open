@@ -26,7 +26,7 @@ const App = () => {
       .update(id, changedNote)
       .then((returnedNote) => {
         setNotes(notes.map(n => n.id !== id ? n : returnedNote))
-        console.log(returnedNote)
+        console.log('returned note',returnedNote)
       })
       .catch(error => {
       setErrorMessage(
@@ -63,6 +63,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <p>Hei. Tervetuloa Jullen muistiinpano sivulle. Voit jättää täällä tervehdyksen minulle tai muille vierailijoille. <br /> Huomaa että kun palvelin käynnityy uudelleen, katoaa kaikki vierailijoiden muistiinpanot</p>
       <Notification message={errorMessage}/>
       <div>
         <button onClick={() => setShowAll(!showAll)}>
