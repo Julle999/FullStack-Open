@@ -61,29 +61,26 @@ app.get('/info', (request, response) => {
 
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
-    console.log(persons)
     persons = persons.filter(p => p.id !== id)
-    console.log('deleted: ',id)
-    console.log(persons)
     response.status(204).end()
 })
 
 const generatedId = (max) => {
   let id = Math.floor(Math.random() * max)
-  console.log(id)
+  //console.log(id)
   //const double = persons.find(p => p.id === String(id))
   
   
   while (persons.find(p => p.id === String(id))) {
     id = Math.floor(Math.random() * max)
-    console.log(id)
+    //console.log(id)
   }
   return String(id)
 }
 
 app.post('/api/persons', (request, response) => {
     const body = request.body
-    console.log(body)
+    //console.log(body)
     if (!body.name) {
       return response.status(400).json({
         error: 'name missing'
@@ -105,12 +102,12 @@ app.post('/api/persons', (request, response) => {
     number: body.number,
     id: generatedId(1000),
   }
-  console.log(person)
+  //console.log(person)
 
   //const double = persons.find(p => p.name === person.name)
-  console.log(persons)
+  //console.log(persons)
   persons = persons.concat(person)
-  console.log(persons)
+  //console.log(persons)
 
   response.json(person)
 })
