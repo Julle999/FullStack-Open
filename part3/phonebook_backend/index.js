@@ -3,30 +3,31 @@ const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const Person = require('./modles/person')
-const person = require('./modles/person')
 const app = express()
 
 
 morgan.token('body', (req,res) => JSON.stringify(req.body))
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
-app.use(express.static('dist'))
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
-app.get('/api/persons', (request, response) => {
+app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
+  .catch(error => next(error))
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
     Person.findById(request.params.id)
       .then(p => {
         response.json(p)
       })
+      .catch(error => next(error))
 })
 
 app.get('/info', (request, response) => {
@@ -38,13 +39,16 @@ app.get('/info', (request, response) => {
         <div/>`)
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/persons/:id', (request, response, next) => {
     const id = request.params.id
-    persons = persons.filter(p => p.id !== id)
-    response.status(204).end()
+    Person.findByIdAndDelete(id)
+      .then(
+        response.status(204).end()
+      )
+      .catch(error => next(error))
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     const body = request.body
 
     if (!body.name) {
@@ -62,11 +66,32 @@ app.post('/api/persons', (request, response) => {
     number: body.number,
   })
   
-  person.save().then(savedPerson => {
-    console.log('henkilön lisäys onnistui')
-    response.json(savedPerson)
-  })
+  person.save()
+    .then(savedPerson => {
+      console.log('henkilön lisäys onnistui')
+      response.json(savedPerson)
+    })
+    .catch(error => next(error))
 })
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+
+  next(error)
+}
+
+// tämä tulee kaikkien muiden middlewarejen ja routejen rekisteröinnin jälkeen!
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
