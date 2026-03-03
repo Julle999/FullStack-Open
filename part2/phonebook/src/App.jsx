@@ -16,7 +16,7 @@ const App = () => {
   const [isError, setIsError] = useState(true)
 
   useEffect(() => {
-    console.log('effect')
+    //console.log('effect')
     bookService
       .getAll()
       .then((initialPersons) => {
@@ -27,7 +27,7 @@ const App = () => {
     //  setPersons(response.data)
     //})
   }, [])
-  console.log('render',persons.length, 'persons')
+  //console.log('render',persons.length, 'persons')
 
   const handleNameChange = (event) => {
     //console.log(event.target.value)
