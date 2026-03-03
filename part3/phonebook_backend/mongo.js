@@ -13,7 +13,7 @@ const personSchema = new mongoose.Schema({
   number: String,
 })
 
-const Person = mongoose.model('Person', personSchema)    
+const Person = mongoose.model('Person', personSchema)
 
 const getAll = () => {
     Person.find({}).then(result => {

@@ -4,11 +4,13 @@ h1 {
   font-style: italic;
 }
 .note {
-    color: gray;
+    color: black;
     padding-top: 3px;
     font-size: 15px;
 }
-
+.nappi {
+    color: grey
+}
 .error {
     color: red;
     background: lightgray;
