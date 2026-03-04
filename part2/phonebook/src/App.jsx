@@ -74,7 +74,7 @@ const App = () => {
               setActionMessage(error.response.data.error)
               setIsError(false)
               setTimeout(() => setActionMessage(null),5000)
-              //console.log(error.response.data)
+              console.log(error.response.data)
             })
 
         } else if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
@@ -114,7 +114,7 @@ const App = () => {
           setPersons(persons.filter(p => p.id !== person.id))
           setActionMessage('Person deleted successfully')
           setIsError(true)
-          setTimeout(() => setActionMessage(null),5000)
+          setTimeout(() => setActionMessage(null),10000)
           console.log(person.id)
           console.log('person ', person.name, ' deleted')
         })
