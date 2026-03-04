@@ -71,9 +71,9 @@ const App = () => {
               setTimeout(() => setActionMessage(null),5000)
             })
             .catch(error => {
-              //setActionMessage(error.response.data)
-              //setIsError(false)
-              //setTimeout(() => setActionMessage(null),5000)
+              setActionMessage(error.response.data.error)
+              setIsError(false)
+              setTimeout(() => setActionMessage(null),5000)
               console.log(error.response.data)
             })
 
