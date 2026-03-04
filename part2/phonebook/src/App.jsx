@@ -14,6 +14,7 @@ const App = () => {
   const [searchName, setSearchName] = useState('')
   const [actionMessage, setActionMessage] = useState(null)  
   const [isError, setIsError] = useState(true)
+  const [reversed, setReversed] = useState(false)
 
   useEffect(() => {
     //console.log('effect')
@@ -44,8 +45,8 @@ const App = () => {
     setSearchName(event.target.value)
   }
   // thank you discord for .includes() above!!!
-  const personsToShow = searchName != '' ? persons.filter(p => p.name.toLowerCase().includes(searchName.toLowerCase())) : persons
-  
+  let personsToShow = searchName != '' ? persons.filter(p => p.name.toLowerCase().includes(searchName.toLowerCase())) : persons
+  personsToShow = reversed ? personsToShow.toReversed() : personsToShow
 
 
   const addPerson = (event) => {
@@ -69,6 +70,13 @@ const App = () => {
               setIsError(true)
               setTimeout(() => setActionMessage(null),5000)
             })
+            .catch(error => {
+              setActionMessage(error.response.data)
+              setIsError(false)
+              setTimeout(() => setActionMessage(null),5000)
+              console.log(error.response.data)
+            })
+
         } else if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
           const existingPerson = persons.find((p) => p.name === newName)
           console.log(existingPerson.id, existingPerson.name)
