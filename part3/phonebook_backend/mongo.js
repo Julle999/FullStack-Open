@@ -16,41 +16,41 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', personSchema)
 
 const getAll = () => {
-    Person.find({}).then(result => {
-        console.log('phonebook')
-        result.forEach(p => {
-            console.log(p.name, p.number)
-        })
-        mongoose.connection.close()
+  Person.find({}).then(result => {
+    console.log('phonebook')
+    result.forEach(p => {
+      console.log(p.name, p.number)
     })
+    mongoose.connection.close()
+  })
 }
 
 const addPerson = () => {
 
-    const person = new Person({
-        name: process.argv[3],
-        number: process.argv[4]
-    })
-    person.save().then(result => {
-      console.log(`added ${result.name} ${result.number} to phonebook`)
-      mongoose.connection.close()
-    })
+  const person = new Person({
+    name: process.argv[3],
+    number: process.argv[4]
+  })
+  person.save().then(result => {
+    console.log(`added ${result.name} ${result.number} to phonebook`)
+    mongoose.connection.close()
+  })
 }
 
 switch (args) {
-    case 2:
-        console.log('give password as argument')
-        process.exit(1)
-        break
-    case 3:
-        getAll()
-        break
-    case 5:
-        addPerson()
-        break
-    default:
-        console.log('invalid command')
-        process.exit(1)
+  case 2:
+    console.log('give password as argument')
+    process.exit(1)
+    break
+  case 3:
+    getAll()
+    break
+  case 5:
+    addPerson()
+    break
+  default:
+    console.log('invalid command')
+    process.exit(1)
 }
 
 //const url = `mongodb+srv://juliusgkoskelo_db_user:${password}@cluster0.wqtggi8.mongodb.net/phonebookApp?appName=Cluster0`

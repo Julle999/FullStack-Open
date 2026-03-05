@@ -22,18 +22,18 @@ app.get('/api/persons', (request, response, next) => {
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
-    Person.findById(request.params.id)
-      .then(p => {
-        response.json(p)
-      })
-      .catch(error => next(error))
+  Person.findById(request.params.id)
+    .then(p => {
+      response.json(p)
+    })
+    .catch(error => next(error))
 })
 
 app.get('/info', (request, response) => {
   Person.countDocuments({}).then(count => {
     const text = `Phonebook has info for ${count} people`
     response.send(
-        `<div>
+      `<div>
             <p>${text}<p/>
             <p>${new Date()}<p/>
         <div/>`)
@@ -41,32 +41,32 @@ app.get('/info', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    const id = request.params.id
-    Person.findByIdAndDelete(id)
-      .then(
-        response.status(204).end()
-      )
-      .catch(error => next(error))
+  const id = request.params.id
+  Person.findByIdAndDelete(id)
+    .then(
+      response.status(204).end()
+    )
+    .catch(error => next(error))
 })
 
 app.post('/api/persons', (request, response, next) => {
-    const body = request.body
+  const body = request.body
 
-    if (!body.name) {
-      return response.status(400).json({
-        error: 'name missing'
-      })
-    } else if (!body.number) {
-      return response.status(400).json({
-        error: 'number missing'
-      })
-    }
+  if (!body.name) {
+    return response.status(400).json({
+      error: 'name missing'
+    })
+  } else if (!body.number) {
+    return response.status(400).json({
+      error: 'number missing'
+    })
+  }
 
   const person = new Person({
     name: body.name,
     number: body.number,
   })
-  
+
   person.save()
     .then(savedPerson => {
       console.log('henkilön lisäys onnistui')
@@ -78,12 +78,11 @@ app.post('/api/persons', (request, response, next) => {
 app.put('/api/persons/:id', (request, response, next) => {
   const id = request.params.id
   const number = request.body.number
-  Person.findByIdAndUpdate(id, {number: number})
-  .then(
-    response.status(204).end()
-  )
-  .catch(error => next(error))
-  
+  Person.findByIdAndUpdate(id, { number: number })
+    .then(
+      response.status(204).end()
+    )
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
@@ -98,9 +97,9 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).json({error : error.message})
+    return response.status(400).json({ error : error.message })
   } else if (error.name === 'MongooseError') {
-    return response.status(400).json({error : error.message})
+    return response.status(400).json({ error : error.message })
   }
 
   next(error)

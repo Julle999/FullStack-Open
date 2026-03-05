@@ -14,7 +14,7 @@ const App = () => {
   const [searchName, setSearchName] = useState('')
   const [actionMessage, setActionMessage] = useState(null)  
   const [isError, setIsError] = useState(true)
-  const [reversed, setReversed] = useState(false)
+  //const [reversed, setReversed] = useState(false)
 
   useEffect(() => {
     //console.log('effect')
@@ -46,7 +46,7 @@ const App = () => {
   }
   // thank you discord for .includes() above!!!
   let personsToShow = searchName != '' ? persons.filter(p => p.name.toLowerCase().includes(searchName.toLowerCase())) : persons
-  personsToShow = reversed ? personsToShow.toReversed() : personsToShow
+  //personsToShow = reversed ? personsToShow.toReversed() : personsToShow
 
 
   const addPerson = (event) => {
@@ -91,7 +91,7 @@ const App = () => {
               setIsError(true)
               setTimeout(() => setActionMessage(null),5000)
             })
-            .catch(error => {
+            .catch(() => {
               console.log('fail')
               setActionMessage(`Information of ${existingPerson.name} has already been removed from the server` )
               setIsError(false)
@@ -110,7 +110,7 @@ const App = () => {
       console.log(`deleting ${person.name}`)
       bookService
         .del(person.id)
-        .then((deletedPerson) => {
+        .then(() => {
           setPersons(persons.filter(p => p.id !== person.id))
           setActionMessage('Person deleted successfully')
           setIsError(true)
