@@ -3,7 +3,7 @@ const Note = ({ note, toggleImportance }) => {
 
   return (
     <li className="note">
-      {note.content} | {note.important.toString()}
+      {note.content} | {note.important ? 'important' : 'unimportant'}
       <button className="nappi" onClick={toggleImportance}>{label}</button>
     </li>
 
