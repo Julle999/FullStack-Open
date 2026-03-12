@@ -14,11 +14,18 @@ beforeEach(async () => {
     await Blog.insertMany(lists.blogs)
 })
 
-test.only('all blogs are returned', async () => {
+test('all blogs are returned', async () => {
     const response = await api.get('/api/blogs')
     .expect(200)
     .expect('Content-Type', /application\/json/)
     assert.strictEqual(6, response.body.length)
+})
+
+test.only('Blogs id field is id', async () => {
+    const response = await api.get('/api/blogs')
+    
+    const hasId = ('id' in response.body[0]) ? true : false
+    assert.strictEqual(hasId, true)
 })
 
 after(async () => {
