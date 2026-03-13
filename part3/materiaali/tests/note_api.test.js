@@ -49,7 +49,7 @@ test('a specific note is within the returned notes', async () => {
   assert(contents.includes('HTML is easy'))
 })
 
-test('a valid note can be added', async () => {
+test.only('a valid note can be added', async () => {
   //console.log('entered test')
   const newNote = {
     content: 'async/await simplifies making async calls',

@@ -58,16 +58,13 @@ const blogWithMostLikes = {
     __v: 0
 }
 
-const listWithOneBlog = [
-        {
-            _id: "69aa85d3ffdde5918b3e980d",
-            title: "testi",
-            author: "julle999",
-            url: "osoite",
-            likes: 4,
-            __v: 0
-        }
-]
+const oneNewBlog = {
+            "title": "testi",
+            "author": "julle999",
+            "url": "osoite",
+            "likes": 4
+            }
+
 
 const listWithTwoBlogs = [
         {
@@ -81,8 +78,8 @@ const listWithTwoBlogs = [
         {
             _id: "69aaa684df5911fa2128a0a9",
             title: "testi2",
-            author: "julle999",
-            url: "osoite",
+            author: "julle9992",
+            url: "osoite2",
             likes: 4,
             __v: 0
         }
@@ -92,6 +89,6 @@ const listWithTwoBlogs = [
 module.exports = {
     blogs, 
     blogWithMostLikes, 
-    listWithOneBlog, 
+    oneNewBlog, 
     listWithTwoBlogs
 }

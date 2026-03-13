@@ -16,8 +16,9 @@ notesRouter.get('/:id', async (request, response, next) => {
 })
 
 notesRouter.post('/', async (request, response) => {
+  //console.log(request.body, 'tämä on req.body')
   const body = request.body
-
+  //console.log(body, 'tämä on body')
     if (!body.content) {
       return response.status(400).json({
         error: 'content missing'
@@ -28,6 +29,7 @@ notesRouter.post('/', async (request, response) => {
     content: body.content,
     important: body.important || false,
   })
+  //console.log(blog, 'tämä on post metodin kloonattu olio')
 
   const savedNote = await note.save()
   response.status(201).json(savedNote)
