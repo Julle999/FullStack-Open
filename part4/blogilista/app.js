@@ -12,8 +12,13 @@ mongoose.connect(config.MONGODB_URI_BLOGLIST, { family: 4 })
     .then( () => {
         logger.info('connected to mongoDB')
     })
-morgan.token('body', (req) => JSON.stringify(req.body))
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+    //app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+
+if (process.env.NODE_ENV !== 'test') {    
+    morgan.token('body', (req) => JSON.stringify(req.body))
+    app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+}
+
 app.use(express.json())
 app.use('/api/blogs', blogsRouter)
 

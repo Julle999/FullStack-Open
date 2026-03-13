@@ -59,10 +59,10 @@ const blogWithMostLikes = {
 }
 
 const oneNewBlog = {
-            "title": "testi",
-            "author": "julle999",
-            "url": "osoite",
-            "likes": 4
+            title: "testi",
+            author: "julle999",
+            url: "osoite",
+            likes: 4
             }
 
 

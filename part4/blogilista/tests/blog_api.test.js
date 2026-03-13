@@ -6,7 +6,7 @@ const assert = require('node:assert')
 const Blog = require('../models/blog')
 const lists = require('./list')
 const blog = require('../models/blog')
-const { blogsInDB } = require('./test_helper')
+const { blogsInDB, nonExistingId } = require('./test_helper')
 
 const api = supertest(app)
 
@@ -29,8 +29,9 @@ test('Blogs id field is id', async () => {
     assert.strictEqual(hasId, true)
 })
 
-test('blog can be added to DB', async () => {
+test.only('blog can be added to DB', async () => {
     const newBlog = lists.oneNewBlog
+    console.log('uusi blogi',newBlog)
     const blogsAtStart = await blogsInDB()
     const addedBlog = await api
         .post('/api/blogs')
@@ -60,7 +61,7 @@ test('adding blog with no likes has 0 likes', async () =>{
     assert.strictEqual(addedBlog.body.likes, 0)
 })
 
-test.only('blog w/o url is not added', async () => {
+test('blog w/o url is not added', async () => {
     const newBlog = {
         title: "testi",
         author: "julle999"
@@ -72,7 +73,7 @@ test.only('blog w/o url is not added', async () => {
         .expect(400)
 })
 
-test.only('blog w/o title is not added', async () => {
+test('blog w/o title is not added', async () => {
     const newBlog = {
         author: "julle999",
         url: "osoite"
@@ -82,6 +83,22 @@ test.only('blog w/o title is not added', async () => {
         .post('/api/blogs')
         .send(newBlog)
         .expect(400)
+})
+
+test('blog can be deleted', async () => {
+    const blogsAtStart = await blogsInDB()
+    const blogToDelete = blogsAtStart[0]
+    await api
+        .delete(`/api/blogs/${blogToDelete.id}`)
+        .expect(204)
+
+    const blogsAtEnd = await blogsInDB()
+
+    assert.strictEqual(blogsAtEnd.length, blogsAtStart.length - 1)
+
+    const ids = blogsAtEnd.map(b => b.id)
+
+    assert(!ids.includes(blogToDelete.id))
 })
 
 after(async () => {
