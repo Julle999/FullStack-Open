@@ -4,6 +4,7 @@ const config = require('./utils/config')
 const logger = require('./utils/logger')
 //const middleware = require('./utils/middleware')
 const blogsRouter = require('./controllers/blogs')
+const usersRouter = require('./controllers/users')
 const morgan = require('morgan')
 
 
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use(express.json())
 app.use('/api/blogs', blogsRouter)
+app.use('/api/users', usersRouter)
 
 
 module.exports = app

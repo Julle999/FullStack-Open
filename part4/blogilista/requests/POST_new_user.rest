@@ -1,0 +1,11 @@
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username": "Maikki9",
+    "name": "name",
+    "password": "erittainsalainen"
+}
+
+//haluan 201 created
+//
