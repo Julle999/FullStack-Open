@@ -5,7 +5,6 @@ const app = require('../app')
 const assert = require('node:assert')
 const Blog = require('../models/blog')
 const lists = require('./list')
-const blog = require('../models/blog')
 const { blogsInDB, nonExistingId } = require('./test_helper')
 
 const api = supertest(app)
@@ -29,7 +28,7 @@ test('Blogs id field is id', async () => {
     assert.strictEqual(hasId, true)
 })
 
-test.only('blog can be added to DB', async () => {
+test('blog can be added to DB', async () => {
     const newBlog = lists.oneNewBlog
     console.log('uusi blogi',newBlog)
     const blogsAtStart = await blogsInDB()

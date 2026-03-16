@@ -1,11 +1,13 @@
 const usersRouter = require('express').Router()
-const { request, response } = require('../app')
 const User = require('../models/user')
-const logger = require('../utils/logger')
 const bcrypt = require('bcrypt')
 
 usersRouter.post('/', async (request, response) => {
     const {username, name, password} = request.body
+
+    if (!password || password.length < 3) {
+        response.status(400).json({ error: 'password too short or missing' })
+    }
 
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
