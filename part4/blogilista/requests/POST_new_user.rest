@@ -2,10 +2,16 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "la",
-    "name": "name",
-    "password": "erittainsalainen"
+    "username": "testaaja testaa tokenia",
+    "name": "nimittäjä",
+    "password": "salainen"
 }
 
 //haluan 201 created
 //
+//{
+//    "username": "testaaja testaa tokenia",
+//    "name": "nimittäjä",
+//    "password": "erittainsalainen"
+//}
+
