@@ -2,8 +2,8 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "testaaja testaa tokenia",
-    "name": "nimittäjä",
+    "username": " tosi uusi user",
+    "name": "uuseri",
     "password": "salainen"
 }
 
@@ -15,3 +15,18 @@ Content-Type: application/json
 //    "password": "erittainsalainen"
 //}
 
+//{
+//    "_id":    69bbd200c12c30b148ea4612
+//    "username": "uusi user",
+//    "name": "uuseri",
+//    "password": "salainen"
+//    TOKEN eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InV1c2kgdXNlciIsImlkIjoiNjliYmQyMDBjMTJjMzBiMTQ4ZWE0NjEyIiwiaWF0IjoxNzczOTE2ODMzfQ.9TOFtZLJfuJ3y29hvg6IrXT4Grlj3RixWirfVEdVDaY
+//}
+
+//{
+//      id 69bbd56c0d29d9497dc332e1
+//    "username": " tosi uusi user",
+//    "name": "uuseri",
+//    "password": "salainen"
+//      TOKEN eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiB0b3NpIHV1c2kgdXNlciIsImlkIjoiNjliYmQ1NmMwZDI5ZDk0OTdkYzMzMmUxIiwiaWF0IjoxNzczOTE3NTkzfQ.ezrWQGU8IehP3tLMdw1ipOhq6uRlhVwf3f2g1rycQRs
+//}

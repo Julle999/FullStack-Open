@@ -26,15 +26,16 @@ blogsRouter.get('/', async (request, response) => {
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
   
+  if (!body.title || !body.url) {
+    response.status(400).json({error: 'title or url missing'})
+  }
+
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
-    const user = await User.findById(decodedToken.id)
-  if (!body.title || !body.url) {
-    response.status(400).end()
-  }
-  //const user = await User.findOne({})
+  const user = await User.findById(decodedToken.id)
+  
   const blog = new Blog({ ...body, user: user._id})
 
   const savedBlog = await blog.save()
@@ -47,6 +48,7 @@ blogsRouter.post('/', async (request, response) => {
 
 blogsRouter.delete('/:id', async (request, response) => {
   const blogId = request.params.id
+
   if (!request.token) {
     return response.status(401).json({ error: 'token invalid' })
   }
@@ -54,7 +56,13 @@ blogsRouter.delete('/:id', async (request, response) => {
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token invalid' })
   }
-  const blog = await Blog.findOne({_id: blogId, user: decodedToken.id})
+  
+  const user = await User.findById(decodedToken.id)
+  const blog = await Blog.findById(blogId)
+  if (blog.user.toString() !== user._id.toString()) {
+    return response.status(401).json({error: 'user is not permited to delete this blog'})//.end()
+  }
+
   const deleted = await Blog.findByIdAndDelete(blogId)
   
   if (!deleted) {
