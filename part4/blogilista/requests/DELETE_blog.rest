@@ -1,6 +1,6 @@
 DELETE http://localhost:3003/api/blogs/69bbd318c12c30b148ea4616
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiB0b3NpIHV1c2kgdXNlciIsImlkIjoiNjliYmQ1NmMwZDI5ZDk0OTdkYzMzMmUxIiwiaWF0IjoxNzczOTE3NTkzfQ.ezrWQGU8IehP3tLMdw1ipOhq6uRlhVwf3f2g1rycQRs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InV1c2kgdXNlciIsImlkIjoiNjliYmQyMDBjMTJjMzBiMTQ4ZWE0NjEyIiwiaWF0IjoxNzczOTE2ODMzfQ.9TOFtZLJfuJ3y29hvg6IrXT4Grlj3RixWirfVEdVDaY
 
 // nonexisting blog id 69ba63c384be1797e8d0f738
 // 69ba6da6d170dd2b0aa71af2 title: "blogi käyttäjällä testi jossa myös käyttäjä saa blogin idn"

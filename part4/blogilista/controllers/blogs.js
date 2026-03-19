@@ -34,7 +34,8 @@ blogsRouter.post('/', async (request, response) => {
     if (!decodedToken.id) {
       return response.status(401).json({ error: 'token invalid' })
     }
-  const user = await User.findById(decodedToken.id)
+    
+  const user = request.user
   
   const blog = new Blog({ ...body, user: user._id})
 
@@ -57,10 +58,10 @@ blogsRouter.delete('/:id', async (request, response) => {
     return response.status(401).json({ error: 'token invalid' })
   }
   
-  const user = await User.findById(decodedToken.id)
+  const user = request.user
   const blog = await Blog.findById(blogId)
   if (blog.user.toString() !== user._id.toString()) {
-    return response.status(401).json({error: 'user is not permited to delete this blog'})//.end()
+    return response.status(401).json({error: 'user is not permited to delete this blog'})
   }
 
   const deleted = await Blog.findByIdAndDelete(blogId)
