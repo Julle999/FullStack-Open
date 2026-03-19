@@ -10,6 +10,7 @@ const morgan = require('morgan')
 
 
 const app = express()
+app.use(middleware.tokenExtractor)
 mongoose.connect(config.MONGODB_URI_BLOGLIST, { family: 4 })
     .then( () => {
         logger.info('connected to mongoDB')
@@ -26,6 +27,7 @@ app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use(middleware.errorHandler)
+
 
 
 module.exports = app
