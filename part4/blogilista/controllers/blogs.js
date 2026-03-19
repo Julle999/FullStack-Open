@@ -46,14 +46,21 @@ blogsRouter.post('/', async (request, response) => {
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
-  const id = request.params.id
-  const deleted = await Blog.findByIdAndDelete(id)
+  const blogId = request.params.id
+  if (!request.token) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const blog = await Blog.findOne({_id: blogId, user: decodedToken.id})
+  const deleted = await Blog.findByIdAndDelete(blogId)
   
   if (!deleted) {
     console.log("Dokumenttia ei löytynyt.")
     response.status(400).end()
   }
-  //console.log('tässä vastaus',vastausTietokannalta)
   response.status(204).end()
 })
 
