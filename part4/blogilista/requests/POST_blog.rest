@@ -1,8 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1aXBwaTciLCJpZCI6IjY5YjdlYzJkOTE3MmNkMzJkYWI1ODljNCIsImlhdCI6MTc3MzgzMzYwMX0.TqfMe4vrZrReb4RU_nx2S9c0WVezZH_jsMw_JoIwEs4
 
 {
-    "title": "blogi käyttäjällä testi jossa myös käyttäjä saa blogin idn, 2",
+    "title": "Testi jossa token Authorization -headeria",
     "author": "julle999",
     "url": "osoite",
     "likes": 4
