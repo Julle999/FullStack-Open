@@ -60,6 +60,9 @@ blogsRouter.delete('/:id', async (request, response) => {
   
   const user = request.user
   const blog = await Blog.findById(blogId)
+  if (!blog.user) {
+    return response.status(409).json({error: 'this blog can be deleted only by admins'})
+  }
   if (blog.user.toString() !== user._id.toString()) {
     return response.status(401).json({error: 'user is not permited to delete this blog'})
   }
@@ -67,7 +70,7 @@ blogsRouter.delete('/:id', async (request, response) => {
   const deleted = await Blog.findByIdAndDelete(blogId)
   
   if (!deleted) {
-    console.log("Dokumenttia ei löytynyt.")
+    logger.error("Dokumenttia ei löytynyt.")
     response.status(400).end()
   }
   response.status(204).end()

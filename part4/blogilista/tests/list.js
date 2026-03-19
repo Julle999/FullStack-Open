@@ -5,7 +5,8 @@ const blogs = [
     author: "Michael Chan",
     url: "https://reactpatterns.com/",
     likes: 7,
-    __v: 0
+    __v: 0,
+    user: '69bbfd5c749635ff4be53c39'
   },
   {
     _id: "5a422aa71b54a676234d17f8",
@@ -49,6 +50,23 @@ const blogs = [
   }  
 ]
 
+const users = [
+  {
+    "username": "uusi user",
+    "name": "uuseri",
+    "blogs": [ ],
+    "id": "69bbd200c12c30b148ea4612",
+    "password": "salainen"
+  },
+  {
+    "username": " tosi uusi user",
+    "name": "uuseri",
+    "blogs": [ ],
+    "id": "69bbd56c0d29d9497dc332e1",
+    "password": "salainen"
+  }
+]
+
 const blogWithMostLikes = {
     _id: "5a422b3a1b54a676234d17f9",
     title: "Canonical string reduction",
@@ -84,11 +102,13 @@ const listWithTwoBlogs = [
             __v: 0
         }
 ]
-
+ const tokenForuusi_user = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InV1c2kgdXNlciIsImlkIjoiNjliYmQyMDBjMTJjMzBiMTQ4ZWE0NjEyIiwiaWF0IjoxNzczOTE2ODMzfQ.9TOFtZLJfuJ3y29hvg6IrXT4Grlj3RixWirfVEdVDaY'
 
 module.exports = {
     blogs, 
+    users,
     blogWithMostLikes, 
     oneNewBlog, 
-    listWithTwoBlogs
+    listWithTwoBlogs,
+    tokenForuusi_user
 }

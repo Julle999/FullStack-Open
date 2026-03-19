@@ -16,7 +16,7 @@ beforeEach(async () => {
     await User.insertMany([])
 })
 
-test.only('user w/ valid username and password is created and added to DB', async () => {
+test('user w/ valid username and password is created and added to DB', async () => {
     const usersAtStart = await usersInDB()
     const user = {
             username: "Maikki1",
@@ -33,7 +33,7 @@ test.only('user w/ valid username and password is created and added to DB', asyn
     assert.strictEqual(usersAtStart.length + 1, usersAtEnd.length)
 })
 
-test.only('user w/ invalid username is not created', async () => {
+test('user w/ invalid username is not created', async () => {
     const user = {
             username: "Ma",
             name: "name1",
@@ -48,7 +48,7 @@ test.only('user w/ invalid username is not created', async () => {
     assert(result.body.error.includes('is shorter than the minimum allowed length'))
 })
 
-test.only('user w/ no username is not created', async () => {
+test('user w/ no username is not created', async () => {
     const user = {
             name: "name1",
             password: "erittainsalainen1"
@@ -62,7 +62,7 @@ test.only('user w/ no username is not created', async () => {
     assert(result.body.error.includes('is required'))
 })
 
-test.only('user w/ invalid password is not created', async () => {
+test('user w/ invalid password is not created', async () => {
     const user = {
             username: "Maikki2",
             name: "name1",
@@ -77,7 +77,7 @@ test.only('user w/ invalid password is not created', async () => {
     assert(result.body.error === 'password too short or missing')
 })
 
-test.only('user w/ no password is not created', async () => {
+test('user w/ no password is not created', async () => {
     const user = {
             username: "MAikki1",
             name: "name1"
