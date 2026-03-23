@@ -24,13 +24,12 @@ const App = () => {
   }, [])
 
     useEffect(() => {
-
-    const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      const uugaBuuga = () => setUser(user)
-      uugaBuuga()
-      noteService.setToken(user.token)
+      const loggedUserJSON = window.localStorage.getItem('loggedNoteappUser')
+      if (loggedUserJSON) {
+        const user = JSON.parse(loggedUserJSON)
+        const uugaBuuga = () => setUser(user)
+        uugaBuuga()
+        noteService.setToken(user.token)
     }
   }, [])
 
