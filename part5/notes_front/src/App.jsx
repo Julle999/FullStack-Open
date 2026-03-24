@@ -134,6 +134,7 @@ const App = () => {
     console.log('Logged Out')
     window.localStorage.removeItem('loggedNoteappUser')
     setUser(null)
+    noteService.setToken(null)
     setErrorMessage('Logged Out')
       setTimeout(()=>{
         setErrorMessage(null)
