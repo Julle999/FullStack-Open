@@ -22,7 +22,7 @@ const Blog = ({ blog, modifyLikes }) => {
     //const likes = blog.likes +1
     //const blogObject = {...blog, likes}
     const blogObject = {...blog, likes: blog.likes + 1}
-    console.log('!!!!!BLOG BLOGOBJECT',blogObject)
+    //console.log('!!!!!BLOG BLOGOBJECT',blogObject)
     modifyLikes(blogObject)
   }
 

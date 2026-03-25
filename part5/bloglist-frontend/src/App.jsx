@@ -103,14 +103,14 @@ const App = () => {
 
   const modify = (changedBlog) => {
     const id = changedBlog.id
-    console.log(id)
-    console.log('!!!!APP', changedBlog)
+    //console.log(id)
+    //console.log('!!!!APP', changedBlog)
     blogService
       .update(changedBlog)
       .then(returnedBlog => {
         setBlogs(blogs.map( b => b.id !== id ? b : returnedBlog))
       }) 
-    console.log(changedBlog)
+    //console.log(changedBlog)
     //const changedBlog = {...blog, likes: blog.likes+1}
     
     //setNotes(notes.map(n => n.id !== id ? n : returnedNote))

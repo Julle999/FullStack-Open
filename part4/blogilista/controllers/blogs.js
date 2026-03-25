@@ -41,11 +41,13 @@ blogsRouter.post('/', async (request, response) => {
   //console.log('!!!!!USER_ID',user._id)
 
   const savedBlog = await blog.save()
+  const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1, id: 1 })
+  
 
   user.blogs = user.blogs.concat(savedBlog._id)
   await user.save()
 
-  response.status(201).json(savedBlog)      
+  response.status(201).json(populatedBlog)      
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
@@ -90,19 +92,22 @@ blogsRouter.put('/:id', async (request, response) => {
   }
   
   const blog = await Blog.findById(blogId)
+  //console.log('jos näyn virhe on jälkeeni')
   if (!blog) {
     return response.status(404).end()
   }
-
+  //console.log('!!!!user',user)
   const userAgain = await User.findById(user.id)
+  //console.log('!!!!',userAgain)
   blog.title = title
   blog.author = author
   blog.url = url
   blog.likes = likes
   blog.user = userAgain.id
 
-  const updatedBlog = await blog.save()//.populate('user', {username: 1, name: 1, id: 1})
-  return response.json(updatedBlog)
+  const updatedBlog = await blog.save()
+  const populatedBlog = await updatedBlog.populate('user', { username: 1, name: 1, id: 1 })
+  return response.json(populatedBlog)
 
 })
 

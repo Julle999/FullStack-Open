@@ -23,14 +23,14 @@ const create = async (newBlog) => {
 
 const update = async (changedBlog) => {
   
-  console.log('!!!!!BLOGSERVICE',changedBlog)
+  //console.log('!!!!!BLOGSERVICE',changedBlog)
   const id = changedBlog.id
-  console.log('!!!BLOGSERVICE',id)
+  //console.log('!!!BLOGSERVICE id',id)
   const config = {
     headers: { Authorization: token}
   }
   const response = await axios.put(`${baseUrl}/${id}`, changedBlog, config)
-  console.log('RESPONSE',response)
+  //console.log('RESPONSE',response)
   return response.data
 }
 
