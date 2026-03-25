@@ -38,6 +38,7 @@ blogsRouter.post('/', async (request, response) => {
   const user = request.user
   
   const blog = new Blog({ ...body, user: user._id})
+  //console.log('!!!!!USER_ID',user._id)
 
   const savedBlog = await blog.save()
 
@@ -74,6 +75,35 @@ blogsRouter.delete('/:id', async (request, response) => {
     response.status(400).end()
   }
   response.status(204).end()
+})
+
+blogsRouter.put('/:id', async (request, response) => {
+  const blogId = request.params.id
+  const { title, author, url, likes, user } = request.body
+  
+  if (!request.token) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+  
+  const blog = await Blog.findById(blogId)
+  if (!blog) {
+    return response.status(404).end()
+  }
+
+  const userAgain = await User.findById(user.id)
+  blog.title = title
+  blog.author = author
+  blog.url = url
+  blog.likes = likes
+  blog.user = userAgain.id
+
+  const updatedBlog = await blog.save()//.populate('user', {username: 1, name: 1, id: 1})
+  return response.json(updatedBlog)
+
 })
 
 module.exports = blogsRouter

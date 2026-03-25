@@ -1,10 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InV1c2kgdXNlciIsImlkIjoiNjliYmQyMDBjMTJjMzBiMTQ4ZWE0NjEyIiwiaWF0IjoxNzczOTE2ODMzfQ.9TOFtZLJfuJ3y29hvg6IrXT4Grlj3RixWirfVEdVDaY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiBtbHV1a2thaSIsImlkIjoiNjljM2NmNTU2YjgwOTJmNjZjNDJiODkwIiwiaWF0IjoxNzc0NDQwNDg5fQ.YGqELXUYOCKJKYmhOc3p9DQeLNgrmlJ_47bVjr4w9Fs
 
 {
-    "title": "toimiiko req.user",
-    "author": "uuseri",
-    "url": "uuurl",
-    "likes": 2
+    "title": "Fullstack open",
+    "author": "Uuseri",
+    "url": "http://osoite.fi",
+    "likes": 0
 }

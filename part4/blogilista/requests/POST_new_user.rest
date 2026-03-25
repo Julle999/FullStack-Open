@@ -2,11 +2,17 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": " tosi uusi user",
-    "name": "uuseri",
+    "username": " mluukkai",
+    "name": "Matti Luukkainen",
     "password": "salainen"
 }
 
+//    "username": " mluukkai",
+//    "name": "Matti Luukkainen",
+//    "password": "salainen"
+//    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiBtbHV1a2thaSIsImlkIjoiNjljM2NmNTU2YjgwOTJmNjZjNDJiODkwIiwiaWF0IjoxNzc0NDQwNDg5fQ.YGqELXUYOCKJKYmhOc3p9DQeLNgrmlJ_47bVjr4w9Fs"
+
+//------------------------------------------------------------------------------
 //haluan 201 created
 //
 //{
