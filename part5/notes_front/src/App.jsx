@@ -45,7 +45,7 @@ const App = () => {
       .update(id, changedNote)
       .then((returnedNote) => {
         setNotes(notes.map(n => n.id !== id ? n : returnedNote))
-        console.log('returned note',returnedNote)
+        //console.log('returned note',returnedNote)
       })
       .catch(() => {
       setErrorMessage(
