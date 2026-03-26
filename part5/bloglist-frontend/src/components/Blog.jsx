@@ -1,6 +1,6 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
-const Blog = ({ blog, modifyLikes }) => {
+const Blog = ({ blog, modifyLikes, user, deleteBlog }) => {
   const [showAll, setShowAll] = useState(false)
   //console.log('!!!!BLOG',blog)
   const blogStyle = {
@@ -12,7 +12,7 @@ const Blog = ({ blog, modifyLikes }) => {
     paddingLeft: 5,
 
   }
-  
+
   const toggleShowAll = () => {
     setShowAll(!showAll)
   }
@@ -21,27 +21,38 @@ const Blog = ({ blog, modifyLikes }) => {
     event.preventDefault()
     //const likes = blog.likes +1
     //const blogObject = {...blog, likes}
-    const blogObject = {...blog, likes: blog.likes + 1}
+    const blogObject = { ...blog, likes: blog.likes + 1 }
     //console.log('!!!!!BLOG BLOGOBJECT',blogObject)
     modifyLikes(blogObject)
   }
 
+  const removeBlog = (event) => {
+    event.preventDefault()
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}`)){
+      //console.log(`Removing blog: ${blog.title}`)
+      deleteBlog(blog.id)
+    }
+  }
+
   const hideWhenShowAll = { display: showAll ? 'none' : '' }
   const showWhenShowAll = { display: showAll ? '' : 'none' }
-  
-  return (  
+
+  return (
     <div style={blogStyle}>
       <div style={hideWhenShowAll}>
         {blog.title} - {blog.author}
         <button onClick={toggleShowAll}>view</button>
-      </div>  
+      </div>
       <div style={showWhenShowAll}>
         {blog.title} - {blog.author}
         <button onClick={toggleShowAll}>hide</button> <br />
         {blog.url} <br />
-        likes {blog.likes} 
+        likes {blog.likes}
         <button onClick={addLike}>like</button> <br />
         {blog.user.name}<br />
+        {user.username === blog.user.username && (
+          <button onClick={removeBlog}>remove</button>
+        )}
       </div>
     </div>
   )

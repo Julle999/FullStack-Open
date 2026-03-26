@@ -2,12 +2,16 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": " mluukkai",
-    "name": "Matti Luukkainen",
+    "username": "juippi7",
+    "name": "Julle Julberi",
     "password": "salainen"
 }
+//    "username": "juippi7",
+//    "name": "Julle Julberi",
+//    "password": "salainen"
+//    token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imp1aXBwaTciLCJpZCI6IjY5YzRkZDY5NTFhZjMyZGVkYmZlOGU1ZiIsImlhdCI6MTc3NDUwOTQ5NH0.LEjEbu73DgJXJ4Lh6owqKKt37QrL6hvKArZBh68ii3w"
 
-//    "username": " mluukkai",
+//    "username": "mluukkai",
 //    "name": "Matti Luukkainen",
 //    "password": "salainen"
 //    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiBtbHV1a2thaSIsImlkIjoiNjljM2NmNTU2YjgwOTJmNjZjNDJiODkwIiwiaWF0IjoxNzc0NDQwNDg5fQ.YGqELXUYOCKJKYmhOc3p9DQeLNgrmlJ_47bVjr4w9Fs"
