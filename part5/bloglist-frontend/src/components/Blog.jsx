@@ -42,19 +42,29 @@ const Blog = ({ blog, modifyLikes, user, deleteBlog }) => {
       <div style={hideWhenShowAll}>
         <label
           placeholder='here is title'
-          id='blog-title-author'
+          id='hideWhenShowall'
         >
           {blog.title} - {blog.author}
         </label>
         <button onClick={toggleShowAll}>view</button>
       </div>
-      <div style={showWhenShowAll}>
-        {blog.title} - {blog.author}
-        <button onClick={toggleShowAll}>hide</button> <br />
-        {blog.url} <br />
-        likes {blog.likes}
-        <button onClick={addLike}>like</button> <br />
-        {blog.user.name}<br />
+      <div style={showWhenShowAll} id='showWhenShowall'>
+        <div id='titleAndAuthor'>
+          {blog.title} - {blog.author}
+          <button onClick={toggleShowAll}>
+            hide
+          </button>
+        </div>
+        <div id='url'>
+          {blog.url}
+        </div>
+        <div id='likes'>
+          likes {blog.likes}
+          <button onClick={addLike}>like</button>
+        </div>
+        <div id='usersName'>
+          {blog.user.name}
+        </div>
         {user.username === blog.user.username && (
           <button onClick={removeBlog}>remove</button>
         )}
