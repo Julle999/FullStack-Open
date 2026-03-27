@@ -6,3 +6,10 @@ Content-Type: application/json
     "name": "Matti Luukkainen",
     "password": "salainen"
 }
+
+//{
+//  "username": "mluukkai",
+//  "name": "Matti Luukkainen",
+//  "notes": [],
+//  "id": "69c65e58f3c0faae681168a3"
+//}

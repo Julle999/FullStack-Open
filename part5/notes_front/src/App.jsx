@@ -94,7 +94,7 @@ const App = () => {
   const notesToShow = showAll ? notes : notes.filter((note) => note.important)
 
   const loginForm = () => (
-      <Togglable buttonLabel='log in'>
+      <Togglable buttonLabel='login'>
         <LoginForm
             username={username}
             password={password}
