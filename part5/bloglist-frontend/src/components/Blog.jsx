@@ -40,10 +40,7 @@ const Blog = ({ blog, modifyLikes, user, deleteBlog }) => {
   return (
     <div style={blogStyle}>
       <div style={hideWhenShowAll}>
-        <label
-          placeholder='here is title'
-          id='hideWhenShowall'
-        >
+        <label placeholder='here is title' id='hideWhenShowall'>
           {blog.title} - {blog.author}
         </label>
         <button onClick={toggleShowAll}>view</button>

@@ -19,7 +19,10 @@ const errorHandler = ( error, request, response, next ) => {
 }
 
 const tokenExtractor = (request, response, next) => {
+    //console.log('!!! req BODY',request.body)
+    //console.log('!!! req AUTH',request.authorization)
     const authorization = request.get('authorization')
+    
     if (authorization && authorization.startsWith('Bearer ')) {
         request.token = authorization.replace('Bearer ', '')
     }
@@ -29,10 +32,14 @@ const tokenExtractor = (request, response, next) => {
 
 const userExtractor = async (request,response, next) => {
     if (request.token) {
-        const decodedToken = jwt.verify(request.token, process.env.SECRET)
-        if (decodedToken.id) {
-            const user = await User.findById(decodedToken.id)
-            request.user = user
+        try {
+            const decodedToken = jwt.verify(request.token, process.env.SECRET)
+            if (decodedToken.id) {
+                const user = await User.findById(decodedToken.id)
+                request.user = user
+            }
+        } catch (error) {
+            logger.error('Token verification failed:', error.message)
         }
     }
     next()

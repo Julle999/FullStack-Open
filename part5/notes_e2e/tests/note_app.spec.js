@@ -34,6 +34,7 @@ describe('Note app', () => {
   test('login fails w/ wrong password', async ({ page }) => {
     
     await loginWith(page, 'mluukkai', 'wrong')
+    
     const errorDiv = page.locator('.error')
     await expect(errorDiv).toContainText('wrong credentials')
     await expect(errorDiv).toHaveCSS('border-style', 'solid')

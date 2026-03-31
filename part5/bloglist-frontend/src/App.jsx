@@ -39,12 +39,13 @@ const App = () => {
     console.log('loggin in with', username, password)
     try {
       const user = await loginService.login({ username, password })
-      console.log('!!!! USER',user)
+      //console.log('!!!! USER',user)
       setUser(user)
       setUsername('')
       setPassword('')
       window.localStorage.setItem('loggedBlogAppUser',JSON.stringify(user))
       blogService.setToken(user.token)
+      console.log('!!! token when logging in', user.token)
       setIsError(false)
       setFeedbackMessage('logged in')
       setTimeout(() => {
@@ -83,12 +84,12 @@ const App = () => {
   //}
 
   const addBlog = (blogObject) => {
-    blogFormRef.current.toggleVisibility()
     //console.log(user)
 
     blogService
       .create(blogObject)
       .then((returnedBlog) => {
+        blogFormRef.current.toggleVisibility()
         setBlogs(blogs.concat(returnedBlog))
         //setTitle('')
         //setAuthor('')

@@ -1,9 +1,11 @@
 const { test, expect, beforeEach, describe } = require('@playwright/test')
+const { createBlog, loginWith } = require('./helper')
 
 describe('Blog app', () => {
   beforeEach(async ({ page, request }) => {
-    await request.post('http://localhost:3003/api/testing/reset')
-    await request.post('http://localhost:3003/api/users', {
+    await request.post('http://localhost:5173/api/testing/reset')
+    
+    await request.post('http://localhost:5173/api/users', {
       data: {
         name: 'Matti Luukkainen',
         username: 'mluukkai',
@@ -18,4 +20,55 @@ describe('Blog app', () => {
     const locator = page.getByText('log in to application')
     await expect(locator).toBeVisible()
   })
+
+  describe('Login', () => {
+    test('succeeds with correct credentials', async ({ page }) => {
+      await loginWith(page, 'mluukkai', 'salainen')
+
+      await expect(page.getByText('Matti Luukkainen logged in')).toBeVisible()
+      await expect(page.getByRole('button', {name: 'logout'})).toBeVisible()
+    })
+
+    test('fails with wrong credentials', async ({ page }) => {
+      await loginWith(page, 'mluukkai', 'wrong')
+
+      await expect(page.getByText('Matti Luukkainen logged in')).not.toBeVisible()
+      await expect(page.getByRole('button', {name: 'logout'})).not.toBeVisible()
+      await expect(page.getByText('wrong username or password')).toBeVisible()
+    })
+
+    describe('When logged in', () => {
+      beforeEach(async ({ page }) => {
+        await loginWith(page, 'mluukkai', 'salainen')
+      })
+    
+      test('a new blog can be created', async ({ page }) => {
+        await createBlog(page, 'blogi', 'authori', 'osoite')
+
+        await expect(page.getByRole('button', {name: 'view'})).toBeVisible()
+        await expect(page.getByRole('button', {name: 'hide'})).not.toBeVisible()
+        await expect(page.getByText('blogi - authori', { exact: true })).toBeVisible()
+      })
+
+      describe('existing blog', () => {
+        beforeEach(async ({ page }) => {
+          await createBlog(page, 'blogi', 'authori', 'osoite')
+        })
+        test('can be viewed', async ({ page }) => {
+          await page.getByRole('button', { name: 'view' }).click()
+
+          await expect(page.getByRole('button', {name: 'hide'})).toBeVisible()
+          await expect(page.getByText('osoite')).toBeVisible()
+        })
+
+        test('and liked', async ({ page }) => {
+          await page.getByRole('button', { name: 'view' }).click()
+          await page.getByRole('button', { name: 'like' }).click()
+          
+          await expect(page.getByText('likes 1like')).toBeVisible()
+        })
+      })
+    })
+  })
+  
 })

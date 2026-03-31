@@ -1,9 +1,7 @@
 const blogsRouter = require('express').Router()
-const { request, response } = require('../app')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 const logger = require('../utils/logger')
-const jwt = require('jsonwebtoken')
 
 //const getTokenFrom = request => {
 //  const authorization = request.get('authorization')
@@ -27,16 +25,14 @@ blogsRouter.post('/', async (request, response) => {
   const body = request.body
   
   if (!body.title || !body.url) {
-    response.status(400).json({error: 'title or url missing'})
+    return response.status(400).json({error: 'title or url missing'})
   }
 
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: 'token invalid' })
-    }
-    
+  if (!request.user) {
+    return response.status(401).json({ error: 'token invalid' })
+  }
+
   const user = request.user
-  
   const blog = new Blog({ ...body, user: user._id})
   //console.log('!!!!!USER_ID',user._id)
 
@@ -53,11 +49,7 @@ blogsRouter.post('/', async (request, response) => {
 blogsRouter.delete('/:id', async (request, response) => {
   const blogId = request.params.id
 
-  if (!request.token) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  if (!decodedToken.id) {
+  if (!request.user) {
     return response.status(401).json({ error: 'token invalid' })
   }
   
@@ -74,7 +66,7 @@ blogsRouter.delete('/:id', async (request, response) => {
   
   if (!deleted) {
     logger.error("Dokumenttia ei löytynyt.")
-    response.status(400).end()
+    return response.status(400).end()
   }
   response.status(204).end()
 })
@@ -82,12 +74,8 @@ blogsRouter.delete('/:id', async (request, response) => {
 blogsRouter.put('/:id', async (request, response) => {
   const blogId = request.params.id
   const { title, author, url, likes, user } = request.body
-  
-  if (!request.token) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  if (!decodedToken.id) {
+
+  if (!request.user) {
     return response.status(401).json({ error: 'token invalid' })
   }
   
