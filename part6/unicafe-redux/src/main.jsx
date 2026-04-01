@@ -5,15 +5,19 @@ import counterReducer from './reducers/counterReducer'
 const store = createStore(counterReducer)
 
 const App = () => {
+
+  const handleChange = (method) => {
+    store.dispatch(method)
+  }
   return (
     <div>
       <button onClick={() => store.dispatch({ type: 'GOOD' })}>good</button>
-      <button>ok</button>
-      <button>bad</button>
-      <button>reset stats</button>
+      <button onClick={() => handleChange({ type: 'OK' })}>ok</button>
+      <button onClick={() => handleChange({ type: 'BAD' })}>bad</button>
+      <button onClick={() => handleChange({ type: 'RESET' })}>reset stats</button>
       <div>good {store.getState().good}</div>
-      <div>ok</div>
-      <div>bad</div>
+      <div>ok {store.getState().ok}</div>
+      <div>bad {store.getState().bad}</div>
     </div>
   )
 }
