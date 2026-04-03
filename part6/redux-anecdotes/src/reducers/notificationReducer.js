@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = 'Tämä on oletus viesti!'
+const initialState = ''
 
 const notificationSlice = createSlice({
     name: 'message',
