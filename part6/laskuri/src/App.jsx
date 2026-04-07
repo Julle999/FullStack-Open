@@ -1,14 +1,12 @@
-import NoteForm from './components/NoteForm'
-import Notes from './components/Notes'
-import VisibilityFilter from './components/VisibilityFilter'
+import Display from "./components/Display"
+import Controls from "./components/Controls"
 
 const App = () => {
 
   return (
     <div>
-      <NoteForm />
-      <VisibilityFilter />
-      <Notes />
+      <Display/>
+      <Controls/>
     </div>
   )
 }
