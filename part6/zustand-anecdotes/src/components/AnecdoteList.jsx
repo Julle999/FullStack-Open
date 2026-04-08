@@ -2,14 +2,16 @@ import { useAnecdotes, useAnecdoteActions } from "../store"
 
 const AnecdoteList = () => {
     const anecdotes = useAnecdotes()
-    const { addVote } = useAnecdoteActions()
-
-    const vote = id => {
-        addVote(id)
-    }
-
-    //const anecdotesToShow = anecdotes.toSorted((a,b) => b.votes - a.votes)
+    const { addVote, deleteAnecdote } = useAnecdoteActions()
     
+
+    const deleteButton = (id) => {
+        return (
+            <div>
+                <button onClick={() => deleteAnecdote(id)}>delete</button>
+            </div>
+        )
+    }
     return (
         <div>
             {anecdotes.map(anecdote => (
@@ -17,7 +19,8 @@ const AnecdoteList = () => {
                   <div>{anecdote.content}</div>
                   <div>
                     has {anecdote.votes}
-                    <button onClick={() => vote(anecdote.id)}>vote</button>
+                    <button onClick={() => addVote(anecdote.id)}>vote</button>
+                    {anecdote.votes === 0 && deleteButton(anecdote.id)}
                   </div>
                 </div>
             ))}
