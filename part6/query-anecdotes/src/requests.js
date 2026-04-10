@@ -18,7 +18,8 @@ export const createAnecdote = async (anecdote) => {
   const response = await fetch(baseUrl, options)
 
   if (!response.ok) {
-    throw new Error('Failed to add anecdote to server')
+    const errorData = await response.json()  // Get server error response
+    throw new Error(errorData.error || 'Failed to add anecdote to server')
   }
 
   return await response.json()
